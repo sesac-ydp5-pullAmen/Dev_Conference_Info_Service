@@ -1,24 +1,541 @@
 <!DOCTYPE html>
 <html lang="ko">
+    <head>
+        <%- include('../../common/head.ejs', {title: '행사 목록' }) %>
+        <link rel="stylesheet" href="/static/css/review.css" />
+        <script defer src="/static/js/event-write.js"></script>
+        <!-- Full Calendar CDN-->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css"
+            rel="stylesheet"
+            media="print"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css"
+        />
 
-<head>
-    <%- include('../../common/head.ejs', {title: '행사 목록' }) %>
-</head>
+        <!-- full calendar 언어 CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    </head>
 
-<body>
-    <%- include('../../common/header.ejs') %>
-        <main>행사 목록 페이지</main>
-        
-        <ul>
-            <% eventList.forEach(event => { %>
-              <li><%= event.con_title %> - <%= event.con_location %></li>
-            <% }); %>
-        </ul>
-        
+    <style>
+        aside {
+            background-color: aliceblue;
+            height: calc(100vh-2rem);
+        }
+        div {
+            background-color: antiquewhite;
+        }
+
+        .list {
+            display: flex;
+            position: relative;
+            flex-direction: row;
+        }
+        .aside {
+            z-index: 990;
+            width: 20vw;
+        }
+
+        .section1 {
+            height: 10vh;
+        }
+
+        .filterhead {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    <body>
+        <%- include('../../common/header.ejs') %>
+        <main>
+            <div class="list">
+                <section class="aside">
+                    <div class="filterhead">
+                        <div>
+                            <!-- 검색 기능 -->
+                            <!-- <form class="d-flex" role="search">
+                                <input
+                                    class="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button
+                                    class="btn btn-outline-success"
+                                    type="submit"
+                                >
+                                    Search
+                                </button>
+                            </form> -->
+                        </div>
+                        <div><a href="#">필터 초기화</a></div>
+                    </div>
+                    <div>
+                        <h2>행사 분야</h2>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault1"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault1"
+                            >
+                                웹 개발
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                AI
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                git
+                            </label>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <h2>지역</h2>
+                        <select
+                            class="form-select"
+                            aria-label="Default select example"
+                        >
+                            <option value="1" selected>서울/경기/인천</option>
+                            <option value="2">부산/울산/경남</option>
+                            <option value="3">대구/경북</option>
+                            <option value="3">충청/대전/세종</option>
+                            <option value="3">전라/광주</option>
+                            <option value="3">강원도</option>
+                            <option value="3">제주도</option>
+                        </select>
+                    </div>
+                    <br />
+
+                    <div>
+                        <h2>참여 방법</h2>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault1"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault1"
+                            >
+                                전체
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                온라인
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                오프라인
+                            </label>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <h2>가격</h2>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault1"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault1"
+                            >
+                                전체
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                무료
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                checked
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexRadioDefault2"
+                            >
+                                유료
+                            </label>
+                        </div>
+                    </div>
+                    <br />
+                    <!-- 검색 기능 -->
+                    <form class="d-flex" role="search">
+                        <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </section>
+                <div>
+                    <!-- <section class="section1">
+                        <div
+                            id="carouselExampleSlidesOnly"
+                            class="carousel slide"
+                            data-bs-ride="carousel"
+                        >
+                            <div class="carousel-inner">
+                                <div
+                                    class="carousel-item active"
+                                    data-bs-interval="10000"
+                                >
+                                    <img
+                                        src="https://xv-ncloud.pstatic.net/images/banner/IMG_1692695710246.png"
+                                        class="d-block w-100"
+                                        alt="..."
+                                    />
+                                </div>
+                                <div
+                                    class="carousel-item"
+                                    data-bs-interval="10000"
+                                >
+                                    <img
+                                        src="https://xv-ncloud.pstatic.net/images/banner/IMG_1692695710246.png"
+                                        class="d-block w-100"
+                                        alt="..."
+                                    />
+                                </div>
+                                <div
+                                    class="carousel-item"
+                                    data-bs-interval="10000"
+                                >
+                                    <img
+                                        src="https://xv-ncloud.pstatic.net/images/banner/IMG_1692695710246.png"
+                                        class="d-block w-100"
+                                        alt="..."
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section> -->
+                    <div class="section2 ui container">
+                        <div class="ui grid">
+                            <div class="ui sixteen column">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="cardSection">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This content is
+                                            a little bit longer.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This content is
+                                            a little bit longer.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This content is
+                                            a little bit longer.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This content is
+                                            a little bit longer.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This content is
+                                            a little bit longer.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This card has supporting text below
+                                            as a natural lead-in to additional
+                                            content.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img
+                                        src="..."
+                                        class="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            This is a wider card with supporting
+                                            text below as a natural lead-in to
+                                            additional content. This card has
+                                            even longer content than the first
+                                            to show that equal height action.
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"
+                                            >Last updated 3 mins ago</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
         <%- include('../../common/footer.ejs') %>
-</body>
-<script>
-   
-    console.log(res.eventList)
-</script>
+        <script>
+            let conenddate = '2023-09-17';
+            $(document).ready(function () {
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay',
+                    },
+                    defaultDate: '2023-09-11',
+                    navLinks: true, // can click day/week names to navigate views
+                    editable: false,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: [
+                        {
+                            title: 'All Day Event',
+                            start: '2023-09-11',
+                        },
+                        {
+                            title: 'Long Event',
+                            start: '2023-09-11',
+                            end: '2023-09-13',
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2023-09-09T16:00:00',
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2023-09-16T16:00:00',
+                        },
+                        {
+                            title: 'Conference',
+                            start: '2023-09-11',
+                            // end: '2023-09-17'
+                            end: `${conenddate}`,
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2023-09-18T10:30:00',
+                            end: '2023-09-18T12:30:00',
+                        },
+                        {
+                            title: 'Lunch',
+                            start: '2023-09-12T12:00:00',
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2023-09-12T14:30:00',
+                        },
+                        {
+                            title: 'Happy Hour',
+                            start: '2023-09-12T17:30:00',
+                        },
+                        {
+                            title: 'Dinner',
+                            start: '2023-09-12T20:00:00',
+                        },
+                        {
+                            title: 'Birthday Party',
+                            start: '2023-09-13T07:00:00',
+                        },
+                        {
+                            title: 'Click for Google',
+                            url: 'https://google.com/',
+                            start: '2023-09-28',
+                        },
+                    ],
+                });
+            });
+        </script>
+    </body>
 </html>
