@@ -32,6 +32,33 @@
                                                     </h6>
                                                     <!-- form 시작 -->
                                                     <form name="form_register">
+                                                        <!-- name -->
+                                                        <div class="form-group">
+                                                            <label
+                                                                for="userName"
+                                                            ></label>
+                                                            <input
+                                                                id="userName"
+                                                                type="text"
+                                                                name="userName"
+                                                                class="form-style"
+                                                                placeholder="Name"
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <!-- email -->
+                                                        <div class="form-group">
+                                                            <label
+                                                                for="userEmail"
+                                                            ></label>
+                                                            <input
+                                                                type="email"
+                                                                id="userEmail"
+                                                                name="userEmail"
+                                                                class="form-style"
+                                                                placeholder="email@example.com"
+                                                            />
+                                                        </div>
                                                         <!-- id -->
                                                         <div
                                                             class="form-group userId-flex"
@@ -54,7 +81,7 @@
                                                             >
                                                                 <button
                                                                     type="button"
-                                                                    class="btn"
+                                                                    class="btn btn-sm"
                                                                     onclick="idCheck()"
                                                                 >
                                                                     중복 아이디
@@ -93,23 +120,27 @@
                                                                 class="userPwCheckMsg"
                                                             ></div>
                                                         </div>
-                                                        <!-- name -->
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="userName"
-                                                            ></label>
-                                                            <input
-                                                                id="userName"
-                                                                type="text"
-                                                                name="userName"
-                                                                class="form-style"
-                                                                placeholder="Name"
-                                                                required
-                                                            />
-                                                        </div>
+
                                                         <!-- address -->
-                                                        <div class="form-group">
-                                                            <label
+                                                        <div
+                                                            class="form-group block-select"
+                                                        >
+                                                            <select
+                                                                class="form-style"
+                                                                aria-label="Default select example"
+                                                            >
+                                                                <option
+                                                                    value=""
+                                                                    disabled
+                                                                    selected
+                                                                >
+                                                                    Address
+                                                                </option>
+                                                                <%-
+                                                                include('../common/components/conLocationSelect'
+                                                                ) %>
+                                                            </select>
+                                                            <!-- <label
                                                                 for="userAddr"
                                                             ></label>
                                                             <input
@@ -119,24 +150,12 @@
                                                                 class="form-style"
                                                                 placeholder="Address"
                                                                 required
-                                                            /><br />
+                                                            /><br /> -->
                                                         </div>
-                                                        <!-- email -->
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="userEmail"
-                                                            ></label>
-                                                            <input
-                                                                type="email"
-                                                                id="userEmail"
-                                                                name="userEmail"
-                                                                class="form-style"
-                                                                placeholder="email@example.com"
-                                                            />
-                                                        </div>
+
                                                         <!-- category -->
                                                         <div
-                                                            class="form-group block-category"
+                                                            class="form-group block-select"
                                                         >
                                                             <select
                                                                 class="form-style"
@@ -144,9 +163,11 @@
                                                                 name="userCategory"
                                                             >
                                                                 <option
+                                                                    value=""
+                                                                    disabled
                                                                     selected
                                                                 >
-                                                                    관심분야를
+                                                                    관심 분야를
                                                                     선택해주세요.
                                                                 </option>
                                                                 <option
@@ -166,14 +187,17 @@
                                                                 </option>
                                                             </select>
                                                         </div>
-
-                                                        <button
-                                                            type="button"
-                                                            class="btn mt-4"
-                                                            onclick="register()"
+                                                        <div
+                                                            class="btn-register"
                                                         >
-                                                            Register
-                                                        </button>
+                                                            <button
+                                                                type="button"
+                                                                class="btn mt-4 btn-register"
+                                                                onclick="register()"
+                                                            >
+                                                                Register
+                                                            </button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -250,11 +274,11 @@
 
                 if (password === confirmPassword) {
                     passwordMatchMessage.textContent = '비밀번호가 일치합니다.';
-                    passwordMatchMessage.style.color = 'green';
+                    passwordMatchMessage.style.color = '#0bf40a';
                 } else {
                     passwordMatchMessage.textContent =
                         '비밀번호가 일치하지 않습니다.';
-                    passwordMatchMessage.style.color = 'red';
+                    passwordMatchMessage.style.color = '#c83c3a';
                 }
             }
             passwordCheckInput.addEventListener('blur', checkPasswordMatch);
