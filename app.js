@@ -57,6 +57,9 @@ app.use('/', mainRouter);
 const userRouter = require('./routes/user');
 app.use('/', userRouter);
 
+const kakaoRouter = require('./routes/kakao');
+app.use('/', kakaoRouter);
+
 const conferenceRouter = require('./routes/conference');
 app.use('/', conferenceRouter);
 
