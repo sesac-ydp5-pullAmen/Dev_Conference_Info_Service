@@ -16,6 +16,7 @@ const Conference = require('./Conference')(sequelize, Sequelize);
 const User = require('./User')(sequelize, Sequelize);
 const ConferenceReview = require('./ConferenceReview')(sequelize, Sequelize);
 const ConFavorite = require('./Confavorite')(sequelize, Sequelize);
+const KakaoUser = require('./KakaoUser')(sequelize, Sequelize);
 
 // Conference와 리뷰 외래키
 Conference.hasOne(ConferenceReview, {
@@ -67,6 +68,7 @@ db.Conference = Conference;
 db.User = User;
 db.ConferenceReview = ConferenceReview;
 db.ConFavorite = ConFavorite;
+db.KakaoUser = KakaoUser;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
