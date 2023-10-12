@@ -14,10 +14,6 @@ exports.getSignup = (req, res) => {
     res.render('signup');
 };
 
-exports.getKakaoLogin = (req, res) => {
-    res.render('kakao');
-};
-
 // 관리자 페이지: 전체 유저 보기
 exports.getUser = async (req, res) => {
     if (req.session.userInfo) {
