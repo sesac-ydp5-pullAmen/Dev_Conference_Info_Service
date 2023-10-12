@@ -10,10 +10,9 @@ router.get(
     '/kakao/callback',
     passport.authenticate('kakao', {
         failureRedirect: '/',
+        session: false,
     }),
     (req, res) => {
-        console.log('pass port2 req :', req);
-        console.log('pass port2 res :', res);
         res.redirect('/');
     }
 );
