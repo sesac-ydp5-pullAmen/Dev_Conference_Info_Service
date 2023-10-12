@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <%- include('../../common/head.ejs', {title: '리뷰 상세' }) %>
+    <head>
+        <%- include('../../common/head.ejs', {title: '리뷰 상세' }) %>
         <link rel="stylesheet" href="/static/css/pages/review/detail.css" />
-</head>
+        <style>
+            /* img {
+                width: 0.5em;
+                height: 36px;
+            } */
+        </style>
+    </head>
 
-<body>
-    <%- include('../../common/header.ejs') %>
+    <body>
+        <%- include('../../common/header.ejs') %>
         <main>
             <div class="wrap">
                 <section class="section">
                     <div class="my-editor">
                         <div class="event">
-                            <p>리뷰 관련 행사</p>
                             <a href="/event/<%-review.con_id%>">
-                                <p><%- review.con_title %></p>
+                                <p>[<%- review.con_title %>]</p>
                             </a>
                         </div>
                         <div class="title">
-                            <p>리뷰 제목</p>
-                            <p><%- review.re_title %></p>
+                            <h2><%- review.re_title %></h2>
                         </div>
-                        <div class="author">
-                            <p>리뷰 작성자</p>
-                            <p><%- review.user_id %></p>
+                        <div class="flex">
+                            <div class="author flex2">
+                                <img
+                                    width="24"
+                                    height="24"
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmMyLjc1NyAwIDUgMi4yNDMgNSA1LjAwMSAwIDIuNzU2LTIuMjQzIDUtNSA1cy01LTIuMjQ0LTUtNWMwLTIuNzU4IDIuMjQzLTUuMDAxIDUtNS4wMDF6bTAtMmMtMy44NjYgMC03IDMuMTM0LTcgNy4wMDEgMCAzLjg2NSAzLjEzNCA3IDcgN3M3LTMuMTM1IDctN2MwLTMuODY3LTMuMTM0LTcuMDAxLTctNy4wMDF6bTYuMzY5IDEzLjM1M2MtLjQ5Ny40OTgtMS4wNTcuOTMxLTEuNjU4IDEuMzAyIDIuODcyIDEuODc0IDQuMzc4IDUuMDgzIDQuOTcyIDcuMzQ2aC0xOS4zODdjLjU3Mi0yLjI5IDIuMDU4LTUuNTAzIDQuOTczLTcuMzU4LS42MDMtLjM3NC0xLjE2Mi0uODExLTEuNjU4LTEuMzEyLTQuMjU4IDMuMDcyLTUuNjExIDguNTA2LTUuNjExIDEwLjY2OWgyNGMwLTIuMTQyLTEuNDQtNy41NTctNS42MzEtMTAuNjQ3eiIvPjwvc3ZnPg=="
+                                    id="icon1"
+                                />
+
+                                <p><%- review.user_id %></p>
+                            </div>
+                            <div class="flex2">
+                                <p><%- review.re_date%></p>
+                                <img
+                                    src="data:image/svg+xml;base64,PHN2ZyBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTEuOTk4IDVjLTQuMDc4IDAtNy43NDIgMy4wOTMtOS44NTMgNi40ODMtLjA5Ni4xNTktLjE0NS4zMzgtLjE0NS41MTdzLjA0OC4zNTguMTQ0LjUxN2MyLjExMiAzLjM5IDUuNzc2IDYuNDgzIDkuODU0IDYuNDgzIDQuMTQzIDAgNy43OTYtMy4wOSA5Ljg2NC02LjQ5My4wOTItLjE1Ni4xMzgtLjMzMi4xMzgtLjUwN3MtLjA0Ni0uMzUxLS4xMzgtLjUwN2MtMi4wNjgtMy40MDMtNS43MjEtNi40OTMtOS44NjQtNi40OTN6bTguNDEzIDdjLTEuODM3IDIuODc4LTQuODk3IDUuNS04LjQxMyA1LjUtMy40NjUgMC02LjUzMi0yLjYzMi04LjQwNC01LjUgMS44NzEtMi44NjggNC45MzktNS41IDguNDA0LTUuNSAzLjUxOCAwIDYuNTc5IDIuNjI0IDguNDEzIDUuNXptLTguNDExLTRjMi4yMDggMCA0IDEuNzkyIDQgNHMtMS43OTIgNC00IDQtNC0xLjc5Mi00LTQgMS43OTItNCA0LTR6bTAgMS41Yy0xLjM4IDAtMi41IDEuMTItMi41IDIuNXMxLjEyIDIuNSAyLjUgMi41IDIuNS0xLjEyIDIuNS0yLjUtMS4xMi0yLjUtMi41LTIuNXoiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg=="
+                                    id="icon2"
+                                />
+                                <p><%- review.re_count%></p>
+                            </div>
                         </div>
+
                         <div class="content">
-                            <p style="font-weight: bold">리뷰 내용</p><br />
+                            <hr />
+                            <br />
                             <p><%- review.re_content %></p>
+                            <br />
                         </div>
                     </div>
                 </section>
             </div>
         </main>
         <%- include('../../common/footer.ejs') %>
-</body>
-
+    </body>
 </html>
