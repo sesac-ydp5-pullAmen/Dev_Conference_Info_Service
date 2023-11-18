@@ -6,7 +6,7 @@ const config = require('./config/config.json');
 
 const path = require('path');
 const app = express();
-const PORT = 8000;
+const PORT = 8001;
 const { sequelize } = require('./models');
 
 app.set('view engine', 'ejs');
