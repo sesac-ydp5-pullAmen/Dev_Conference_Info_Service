@@ -61,7 +61,7 @@
 -   언어 : <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
 -   프레임워크 : <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=Node.js&logoColor=white"/>
 -   DB : <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
--   배포 : <img src="https://img.shields.io/badge/Naver-03C75A?style=flat&logo=Naver&logoColor=white"/>
+-   배포 : [![AWS](https://img.shields.io/badge/AWS-Latest-orange?style=flat&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 
 ---
 
