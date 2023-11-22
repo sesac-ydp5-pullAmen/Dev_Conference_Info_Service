@@ -51,14 +51,16 @@
 ## 개발 환경 :point_down:
 
 -   개발도구 : <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=#007ACC"/>
--   버전 관리 도구: <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/>
+-   버전 관리 도구: <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/>[![Git](https://img.shields.io/badge/Git-Latest-orange?style=flat&logo=git&logoColor=white)](https://git-scm.com/)
+
 -   커뮤니케이션 도구: <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=Discord&logoColor=white"/>
--   DB 관리 도구: <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
+-   DB 관리 도구: [![DBeaver](https://img.shields.io/badge/DBeaver-Latest-blue?style=flat&logo=dbeaver&logoColor=white)](https://dbeaver.io/)
 
 ## 사용 기술 :point_down:
 
 -   언어 : <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
 -   프레임워크 : <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=Node.js&logoColor=white"/>
+-   DB : <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
 -   배포 : <img src="https://img.shields.io/badge/Naver-03C75A?style=flat&logo=Naver&logoColor=white"/>
 
 ---
